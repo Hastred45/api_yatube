@@ -1,4 +1,4 @@
-from posts.models import Comment, Group, Post
+from posts.models import Group, Post
 from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
@@ -28,7 +28,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         post = get_object_or_404(Post, id=self.kwargs.get("post_id"))
-        queryset = Comment.objects.filter(post=post)
+        queryset = post.comments.all()
         return queryset
 
     def perform_create(self, serializer):
